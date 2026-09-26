@@ -1,0 +1,1 @@
+export function accountBalance(state){const start=Number(state?.settings?.balance)||0;const realized=(state?.trades||[]).filter(t=>t.tradeType!=='historical').reduce((a,t)=>a+(Number(t.resultPL)||0),0);return {starting:start,realized,current:start+realized}}

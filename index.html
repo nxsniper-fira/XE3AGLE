@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XE3AGLE — Discipline Over Impulse</title>
+<meta name="description" content="XE3AGLE is a personal trading discipline system and journal. Risk rules, daily prep, kill-switch, psychology reviews, and private cloud sync.">
+<meta name="theme-color" content="#050506">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap">
+<link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="css/modern.css">
+<link rel="stylesheet" href="css/core.css">
+</head>
+<body>
+  <header class="lp-nav">
+    <div class="wrap lp-nav-inner">
+      <a class="lp-brand" href="index.html">
+        <img src="assets/icons/xe3agle-logo.png" alt="XE3AGLE logo" width="36" height="36">
+        <span>XE3AGLE</span>
+      </a>
+      <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-label="Menu">☰</button>
+      <nav class="lp-links" id="lp-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="lp-nav-cta">
+        <div class="theme-mini" id="theme-mini-landing" title="Theme">
+          <button type="button" data-theme-option="dark" onclick="setTheme('dark')" aria-label="Dark"><span></span></button>
+          <button type="button" data-theme-option="light" onclick="setTheme('light')" aria-label="White"><span></span></button>
+          <button type="button" data-theme-option="blue" onclick="setTheme('blue')" aria-label="Blue"><span></span></button>
+        </div>
+        <a class="btn btn-ghost" href="/login.html">Sign in</a>
+        <a class="btn btn-primary" href="/login.html?mode=signup">Sign up free</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Trading discipline system</div>
+          <h1>Discipline over <em>impulse</em>.</h1>
+          <p class="hero-lead">
+            XE3AGLE is your private operating system for risk, routine, and review.
+            Prep before you trade, enforce rules while you trade, and learn after you trade —
+            without noise, social feeds, or broker lock-in.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="/login.html?mode=signup">Create free account</a>
+            <a class="btn btn-lg" href="/login.html">Sign in</a>
+          </div>
+          <div class="hero-meta">
+            <span><strong>Private</strong> cloud sync</span>
+            <span><strong>Offline-first</strong> journal</span>
+            <span><strong>Username</strong> sign-in</span>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Product snapshot">
+          <img class="hero-card-logo" src="assets/icons/xe3agle-logo.png" alt="XE3AGLE">
+          <h2 style="font-size:20px;font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Built for process traders</h2>
+          <p style="color:var(--text2);font-size:14px;margin-bottom:4px">
+            Daily risk limits, consecutive-loss stops, min R:R checks, session clock (New York),
+            psychology prompts, and a journal that stays yours.
+          </p>
+          <div class="stat-row">
+            <div class="stat"><b>Rules</b><span>Before size</span></div>
+            <div class="stat"><b>Review</b><span>After close</span></div>
+            <div class="stat"><b>Risk %</b><span>Per trade</span></div>
+            <div class="stat"><b>Sync</b><span>When online</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-h">
+          <h2>Everything you need to stay disciplined</h2>
+          <p>Not a broker. Not a signal service. A personal system that makes “following the plan” the path of least resistance.</p>
+        </div>
+        <div class="feat-grid">
+          <article class="feat">
+            <div class="feat-icon">◈</div>
+            <h3>Risk engine</h3>
+            <p>Position size from account risk %, stop distance, and point value. Enforce minimum reward-to-risk before a trade is allowed.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">⏹</div>
+            <h3>Daily stop rules</h3>
+            <p>Max trades, max consecutive losses, and daily loss limits. When limits hit, trading is blocked — impulse doesn’t get a vote.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">☀</div>
+            <h3>Daily preparation</h3>
+            <p>Emotion, focus, news, and market bias checklist before the session. Start clean; don’t invent a plan mid-trade.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">◷</div>
+            <h3>Session awareness</h3>
+            <p>New York trading clock with daylight-saving handled automatically. Default window aligned to liquid hours.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">◎</div>
+            <h3>Trade journal</h3>
+            <p>Log direction, setup, R-multiple, notes, tags, and cloud screenshots. Filter history and learn from your own data.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">◉</div>
+            <h3>Psychology loop</h3>
+            <p>Discipline scores, daily review prompts, and streaks for green days and rules-followed days — process over P&amp;L theater.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">☁</div>
+            <h3>Private cloud sync</h3>
+            <p>Account state syncs to your backend when online. Offline queue and conflict protection keep local work safe.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">🛡</div>
+            <h3>Balance privacy</h3>
+            <p>Hide balances with one control when someone is looking over your shoulder. Your numbers, your visibility.</p>
+          </article>
+          <article class="feat">
+            <div class="feat-icon">↗</div>
+            <h3>Share &amp; coach links</h3>
+            <p>Optional read-only trade cards and coach journal links — share process without handing over full account access.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="section-h">
+          <h2>How XE3AGLE fits your day</h2>
+          <p>A simple loop: prepare → approve → execute → review. The dashboard enforces the loop; the landing page only explains it.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <h3>Prepare</h3>
+            <p>Mark bias, emotion, and rules acceptance before the open.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <h3>Approve</h3>
+            <p>Run entry, stop, and target through risk and rule checks.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <h3>Journal</h3>
+            <p>Record the outcome in R, notes, and optional screenshots.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <h3>Review</h3>
+            <p>Close the day with reflection so tomorrow inherits clarity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools">
+      <div class="wrap">
+        <div class="section-h">
+          <h2>What the product includes</h2>
+          <p>These are capabilities inside the dashboard after you sign in — summarized here so you know what you’re getting.</p>
+        </div>
+        <div class="feat-grid">
+          <article class="feat">
+            <h3>Today workspace</h3>
+            <p>Live status, metrics, active trade panel, and kill-switch visibility for the current session.</p>
+          </article>
+          <article class="feat">
+            <h3>Analytics</h3>
+            <p>Performance views, discipline stats, and history so patterns show up before they cost you.</p>
+          </article>
+          <article class="feat">
+            <h3>Settings &amp; export</h3>
+            <p>Risk defaults, timezone, privacy, and data export paths for your own records.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about-grid">
+        <div class="about-card">
+          <h3>About XE3AGLE</h3>
+          <p>
+            XE3AGLE exists for one job: make disciplined trading the default.
+            Most platforms optimize for activity. We optimize for restraint, clarity, and review.
+          </p>
+          <p>
+            Your journal stays under your account. Sync runs through your deployed API and database.
+            No social layer. No copy-trading. No “hot tips.”
+          </p>
+          <ul class="about-list">
+            <li>Built as a PWA — installable, offline-tolerant</li>
+            <li>Email/password and Google sign-in</li>
+            <li>Sessions remembered on this device until you log out or the token expires</li>
+            <li>Designed for serious retail and semi-pro process traders</li>
+          </ul>
+        </div>
+        <div class="about-card" id="contact">
+          <h3>Contact</h3>
+          <p>Questions about setup, feedback, or partnership — send a note. For product feedback after you have an account, you can also use in-app feedback once signed in.</p>
+          <form class="contact-form" id="contact-form">
+            <input type="text" name="name" placeholder="Your name" required maxlength="80" autocomplete="name">
+            <input type="email" name="email" placeholder="Email" required autocomplete="email">
+            <textarea name="message" placeholder="How can we help?" required maxlength="2000"></textarea>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="contact-note" id="contact-status">This form opens your email client with a pre-filled message (no spam servers on the landing page).</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Ready to trade the plan?</h2>
+        <p>Create an account, sign in once, and XE3AGLE remembers you on this browser.</p>
+        <div class="hero-actions" style="justify-content:center;margin:0">
+          <a class="btn btn-primary btn-lg" href="/login.html?mode=signup">Sign up free</a>
+          <a class="btn btn-lg" href="/login.html">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="lp-footer">
+    <div class="wrap lp-footer-inner">
+      <div>© <span id="y"></span> XE3AGLE · Discipline Over Impulse</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="/login.html">Sign in</a>
+        
+      </div>
+    </div>
+  </footer>
+
+  <script src="api-config.js"></script>
+  <script type="module">
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('nav-toggle')?.addEventListener('click', () => {
+      document.getElementById('lp-links')?.classList.toggle('open');
+    });
+
+    // If already logged in, emphasize dashboard
+    const token = localStorage.getItem('xe3agle_token');
+    if (token) {
+      if (dash) dash.hidden = false;
+      document.querySelectorAll('a[href="/login.html"], a[href="/login.html?mode=signup"]').forEach((a) => {
+        if (a.classList.contains('btn-ghost') || a.textContent.includes('Sign in')) {
+          a.textContent = 'Sign in';
+        }
+      });
+    }
+
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const name = String(fd.get('name') || '').trim();
+      const email = String(fd.get('email') || '').trim();
+      const message = String(fd.get('message') || '').trim();
+      const subject = encodeURIComponent('XE3AGLE contact from ' + name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      const status = document.getElementById('contact-status');
+      // Prefer mailto — no backend required on landing
+      window.location.href = `mailto:hello@xe3agle.app?subject=${subject}&body=${body}`;
+      if (status) status.textContent = 'Opening your email app… If nothing opens, email hello@xe3agle.app directly.';
+    });
+  </script>
+<script type="module">
+  import { ThemeManager } from './js/ui/theme-manager.js';
+  ThemeManager.init();
+</script>
+</body>
+</html>

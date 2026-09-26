@@ -1,0 +1,1 @@
+export function filterTrades(trades,{result,direction,from,to}={}){return trades.filter(t=>(!result||t.result===result)&&(!direction||t.direction===direction)&&(!from||new Date(t.date)>=new Date(from))&&(!to||new Date(t.date)<=new Date(to)))}

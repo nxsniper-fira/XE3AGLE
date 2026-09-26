@@ -1,0 +1,1 @@
+export function drawdownSeries(state){let bal=Number(state?.settings?.balance)||0,peak=bal,max=0;for(const t of state?.trades||[]){if(t.tradeType==='historical')continue;bal+=Number(t.resultPL)||0;peak=Math.max(peak,bal);max=Math.max(max,peak-bal)}return {current:peak-bal,max}}

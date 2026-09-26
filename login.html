@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — XE3AGLE</title>
+<meta name="theme-color" content="#050506">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/modern.css">
+<link rel="stylesheet" href="css/landing.css">
+<style>
+  body.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(900px 480px at 20% -10%, rgba(255,138,26,0.07), transparent 50%),
+      var(--bg, #050506);
+  }
+  .login-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px; max-width: 1120px; width: 100%; margin: 0 auto;
+  }
+  .login-top a.brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 900; letter-spacing: 0.12em; font-size: 14px; color: var(--text, #f2f2f5);
+  }
+  .login-top img { width: 32px; height: 32px; object-fit: contain; mix-blend-mode: screen; }
+  .login-main {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px 48px;
+  }
+  .xe-auth-gate {
+    position: relative; inset: auto; z-index: 1;
+    opacity: 1; visibility: visible; pointer-events: auto;
+    background: transparent; padding: 0; display: block; width: 100%;
+  }
+  .xe-auth-wrapper { margin: 0 auto; }
+</style>
+</head>
+<body class="login-page">
+  <div class="login-top">
+    <a class="brand" href="index.html">
+      <img src="assets/icons/xe3agle-logo.png" alt="XE3AGLE" width="32" height="32">
+      XE3AGLE
+    </a>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div class="theme-mini" id="theme-mini-login" title="Theme">
+        <button type="button" data-theme-option="dark" onclick="setTheme('dark')" aria-label="Dark"><span></span></button>
+        <button type="button" data-theme-option="light" onclick="setTheme('light')" aria-label="White"><span></span></button>
+        <button type="button" data-theme-option="blue" onclick="setTheme('blue')" aria-label="Blue"><span></span></button>
+      </div>
+      <a class="btn btn-ghost" href="index.html">← Back to home</a>
+    </div>
+  </div>
+  <div class="login-main" id="login-root">
+    <!-- Auth panel injected by js/login-page.js -->
+  </div>
+  <script src="api-config.js"></script>
+  <script type="module" src="js/login-page.js"></script>
+  <script type="module">
+    import { ThemeManager } from './js/ui/theme-manager.js';
+    ThemeManager.init();
+  </script>
+</body>
+</html>

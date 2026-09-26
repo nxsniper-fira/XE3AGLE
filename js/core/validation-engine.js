@@ -1,0 +1,1 @@
+export const ValidationEngine={number(v,name){const n=Number(v);return Number.isFinite(n)?{ok:true,value:n}:{ok:false,error:`${name} must be a valid number`}},positive(v,name){const r=this.number(v,name);return !r.ok?r:r.value>0?r:{ok:false,error:`${name} must be greater than zero`}}};

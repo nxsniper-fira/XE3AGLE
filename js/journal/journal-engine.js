@@ -1,0 +1,1 @@
+export const JournalEngine={all(){return [...(window.state?.trades||[])].sort((a,b)=>new Date(b.date||b.timestamp||0)-new Date(a.date||a.timestamp||0))},live(){return this.all().filter(t=>t.tradeType!=='historical')},historical(){return this.all().filter(t=>t.tradeType==='historical')}};

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XE3AGLE — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="css/core.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/modern.css">
+<link rel="stylesheet" href="css/mobile.css">
+
+<link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png">
+<link rel="preload" as="image" href="assets/icons/xe3agle-logo.png" fetchpriority="high">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050506">
+</head>
+<body class="auth-locked" data-xe-app="1">
+<!-- Authentication gate is injected by js/app.js. Backend: Render API + Neon Postgres. XE3AGLE -->
+
+<!-- SPLASH SCREEN -->
+<div id="splash-screen" class="xe-splash" aria-hidden="true">
+  <img id="splash-logo" class="xe-logo-image" src="assets/icons/xe3agle-logo.png" alt="XE3AGLE" width="72" height="72" decoding="async">
+  <div class="xe-splash-text">Loading...</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-left">
+      <img id="sidebar-logo-img" class="xe-logo-image sidebar-logo-img" src="assets/icons/xe3agle-logo.png" alt="XE3AGLE" width="36" height="36" decoding="async">
+      <div class="logo-text-block">
+        <div class="logo-text">XE3AGLE</div>
+        <div class="logo-tagline">Discipline Over Impulse</div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <button class="nav-item active" onclick="navigate('today')" id="nav-today">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+      Today
+      <span class="nav-status" id="nav-status-dot"></span>
+    </button>
+    <button class="nav-item" onclick="navigate('prepare')" id="nav-prepare">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L8 14M2 8L14 8M4 4L12 12M12 4L4 12"/></svg>
+      Prepare
+    </button>
+    <button class="nav-item" onclick="navigate('setup')" id="nav-setup">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
+      Setup &amp; Analysis
+    </button>
+    <button class="nav-item" onclick="navigate('check')" id="nav-check">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l3 3 7-7"/><rect x="1" y="1" width="14" height="14" rx="2"/></svg>
+      Pre-Trade Check
+    </button>
+    <button class="nav-item" onclick="navigate('journal')" id="nav-journal">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="1" width="10" height="14" rx="1"/><path d="M6 5h4M6 8h4M6 11h2"/></svg>
+      Journal
+    </button>
+    <button class="nav-item" onclick="navigate('stats')" id="nav-stats">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 14V8l4-4 4 4 4-8"/></svg>
+      Stats
+    </button>
+    <button class="nav-item" onclick="navigate('psychology')" id="nav-psychology">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="4"/><path d="M4 14s1-2 4-2 4 2 4 2"/></svg>
+      Psychology
+    </button>
+    <button class="nav-item" onclick="navigate('status')" id="nav-status">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+      Status
+    </button>
+    <button class="nav-item" onclick="navigate('analytics')" id="nav-analytics">
+      <span class="nav-icon">◈</span> Analytics
+    </button>
+    <button class="nav-item" onclick="navigate('settings')" id="nav-settings">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M3.2 12.8l1.4-1.4M11.4 4.6l1.4-1.4"/></svg>
+      Settings
+    </button>
+    <button class="nav-item" onclick="navigate('guide')" id="nav-guide">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5v.5"/></svg>
+      How To Use
+    </button>
+  </nav>
+  <div class="sidebar-footer-row">
+    <div id="sidebar-time">--:-- --</div>
+  </div>
+</aside>
+
+<!-- OVERLAY -->
+<div class="main">
+  <header class="topbar">
+    <div class="flex-center gap8">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <img id="topbar-logo-img" class="xe-logo-image mobile-only" src="assets/icons/xe3agle-logo.png" alt="XE3AGLE" style="height:28px;width:auto;object-fit:contain;display:none">
+      <span class="topbar-title" id="topbar-title">Today</span>
+    </div>
+    <div class="topbar-status">
+      <span id="topbar-status-badge" class="status-badge badge-prep">PREPARATION</span>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- TODAY -->
+    <div class="page active" id="page-today">
+      <div class="flex-between mb0" style="margin-bottom:20px">
+        <div>
+          <h1 id="today-date">—</h1>
+          <div class="text-muted text-xs mt4" id="today-time">—</div>
+        </div>
+        <div style="text-align:right">
+          <div class="text-xs text-muted" style="display:flex;align-items:center;justify-content:flex-end;gap:6px">
+            <span>Account Balance</span>
+            <button class="icon-btn balance-toggle" id="balance-privacy-toggle" onclick="toggleBalancePrivacy()" type="button" aria-label="Hide balance" title="Hide balance">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.7"/></svg>
+            </button>
+          </div>
+          <div style="font-size:20px;font-weight:700" id="today-balance" class="balance-value">$—</div>
+        </div>
+      </div>
+
+      <div class="mission" id="mission-box">
+        <div class="mission-label">Today's Mission</div>
+        <div class="mission-text" id="mission-text">Loading...</div>
+      </div>
+
+      <div class="workflow-launch card" style="margin-bottom:16px">
+        <div><div class="card-title">Your trading workflow</div><p class="text-muted">Move through preparation, rules, analysis, checks, and results in order.</p></div>
+        <button class="btn btn-primary workflow-launch-btn" onclick="navigate('workflow')">Get ready <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="workflow" id="workflow-bar"></div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px" id="today-metrics"></div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">Session Rules</div>
+          <div style="font-size:13px;display:flex;flex-direction:column;gap:6px" id="today-rules"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Today's Trades</div>
+          <div id="today-trades-list"></div>
+        </div>
+      </div>
+
+      <!-- ACTIVE TRADE (shown when trade active) -->
+      <div id="active-trade-panel" class="hidden">
+        <div class="active-trade">
+          <h2>⚡ Trade Active</h2>
+          <div class="grid4" id="active-trade-metrics"></div>
+          <div class="trade-warning mt8">DO NOT MOVE YOUR STOP LOSS</div>
+          <div class="trade-warning mt8">DO NOT ADD RISK — DISCIPLINE OVER IMPULSE</div>
+          <div class="btn-group mt12">
+            <button class="btn btn-success" onclick="openCloseTrade('WIN')">Win</button>
+            <button class="btn btn-danger" onclick="openCloseTrade('LOSS')">Loss</button>
+            <button class="btn" onclick="openCloseTrade('BREAKEVEN')">Breakeven</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERMINATED (shown when session terminated) -->
+      <div id="terminated-panel" class="hidden">
+        <div class="card" style="background:var(--red-bg);border-color:var(--red-border)">
+          <div class="terminated-screen">
+            <div class="terminated-big">TRADING TERMINATED</div>
+            <div class="terminated-sub">SESSION COMPLETE — CLOSE THE CHARTS.</div>
+            <div id="terminated-reason" class="alert alert-red" style="display:inline-block;text-align:left"></div>
+          </div>
+        </div>
+        <!-- Daily Review -->
+        <div class="card">
+          <div class="card-title">Daily Review</div>
+          <div class="field-row col2">
+            <div class="field">
+              <label>What did I learn today?</label>
+              <textarea id="daily-review-learned" placeholder="Key insights from today's session..."></textarea>
+            </div>
+            <div class="field">
+              <label>What will I do differently tomorrow?</label>
+              <textarea id="daily-review-tomorrow" placeholder="Concrete changes for next session..."></textarea>
+            </div>
+          </div>
+          <div class="field-row col3" style="margin-top:8px">
+            <div class="metric" style="text-align:center">
+              <div class="metric-label">Checklist</div>
+              <div id="dr-checklist-pct" class="metric-value">—</div>
+            </div>
+            <div class="metric" style="text-align:center">
+              <div class="metric-label">Rule Violations</div>
+              <div id="dr-violations" class="metric-value">—</div>
+            </div>
+            <div class="metric" style="text-align:center">
+              <div class="metric-label">Emotion</div>
+              <div id="dr-emotion" class="metric-value" style="font-size:14px">—</div>
+            </div>
+          </div>
+          <button class="btn btn-primary mt12" onclick="saveDailyReview()">Save Daily Review</button>
+          <div id="daily-review-saved" class="hidden mt8"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW HUB -->
+    <div class="page" id="page-workflow">
+      <div class="section-header"><h1>Trading Workflow</h1><p>Your step-by-step operating checklist. Open each stage, complete it, then continue.</p></div>
+      <div class="workflow-hub-grid">
+        <button class="workflow-step-card" onclick="navigate('prepare')"><span class="workflow-step-num">01</span><span class="workflow-step-title">Get prepared</span><span class="workflow-step-desc">Check your mindset and session readiness.</span><span class="workflow-step-link">Open preparation →</span></button>
+        <button class="workflow-step-card" onclick="navigate('prepare')"><span class="workflow-step-num">02</span><span class="workflow-step-title">Review rules</span><span class="workflow-step-desc">Read and accept today's risk contract.</span><span class="workflow-step-link">Open rules →</span></button>
+        <button class="workflow-step-card" onclick="navigate('setup')"><span class="workflow-step-num">03</span><span class="workflow-step-title">Analysis</span><span class="workflow-step-desc">Record bias, liquidity, setup, entry, SL and TP.</span><span class="workflow-step-link">Open analysis →</span></button>
+        <button class="workflow-step-card" onclick="navigate('check')"><span class="workflow-step-num">04</span><span class="workflow-step-title">Pre-trade check</span><span class="workflow-step-desc">Validate the setup against your rules.</span><span class="workflow-step-link">Check setup →</span></button>
+        <button class="workflow-step-card" onclick="navigate('journal')"><span class="workflow-step-num">05</span><span class="workflow-step-title">Record the result</span><span class="workflow-step-desc">Log trades and review your execution.</span><span class="workflow-step-link">Open journal →</span></button>
+      </div>
+    </div>
+
+    <!-- PREPARE -->
+    <div class="page" id="page-prepare">
+      <div class="section-header">
+        <h1>Morning Preparation</h1>
+        <p>Complete your pre-session protocol before trading</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Mental State</div>
+        <p class="text-muted text-xs" style="margin-bottom:12px">How are you feeling right now? Be honest.</p>
+        <div class="emotion-grid" id="emotion-grid"></div>
+        <div id="emotion-warning" class="hidden mt12"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Pre-Session Notes</div>
+        <div class="field">
+          <label>What is your focus for today?</label>
+          <textarea id="prep-focus" placeholder="Write your intention for today's session..."></textarea>
+        </div>
+        <div class="field">
+          <label>Any news or events to be aware of?</label>
+          <textarea id="prep-news" placeholder="High-impact news, scheduled events..."></textarea>
+        </div>
+        <div class="field">
+          <label>Markets to watch</label>
+          <input type="text" id="prep-markets" placeholder="e.g. NQ, ES, GBPUSD...">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Daily Rules Contract</div>
+        <div id="rules-contract"></div>
+        <div class="divider"></div>
+        <button class="btn btn-primary btn-full" id="accept-btn" onclick="acceptRules()">I Accept Today's Rules</button>
+        <div id="accept-status" class="hidden mt8"></div>
+      </div>
+    </div>
+
+    <!-- SETUP -->
+    <div class="page" id="page-setup">
+      <div class="section-header">
+        <h1>Setup &amp; Analysis</h1>
+        <p>Complete your market analysis before considering a trade</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Market Bias</div>
+        <div class="field">
+          <label>Overall Direction</label>
+          <div class="radio-group" id="bias-dir"></div>
+        </div>
+        <div class="field-row col2">
+          <div class="field">
+            <label>Higher-Timeframe Bias</label>
+            <div class="radio-group" id="bias-htf"></div>
+          </div>
+          <div class="field">
+            <label>Execution-Timeframe Bias</label>
+            <div class="radio-group" id="bias-etf"></div>
+          </div>
+        </div>
+        <div id="bias-alignment" class="mt8"></div>
+        <div class="field mt12">
+          <label>Bias Reasoning</label>
+          <textarea id="bias-notes" placeholder="Why do you have this bias?"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Liquidity</div>
+        <div class="field">
+          <label>Key Liquidity Levels</label>
+          <div class="check-group" id="liquidity-checks"></div>
+        </div>
+        <div class="field mt8">
+          <label>Notes</label>
+          <textarea id="liquidity-notes" placeholder="Where is liquidity sitting?"></textarea>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="card-title">Liquidity Sweep</div>
+          <div id="sweep-check"></div>
+          <div class="field mt8">
+            <label>Notes</label>
+            <textarea id="sweep-notes" placeholder="Details about the sweep..."></textarea>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Market Structure Shift (MSS)</div>
+          <div id="mss-check"></div>
+          <div class="field mt8">
+            <label>Notes</label>
+            <textarea id="mss-notes" placeholder="Details about the MSS..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Entry Model</div>
+        <div class="radio-group" id="entry-model-group"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Trade Plan</div>
+        <div class="field-row col2">
+          <div class="field">
+            <label>Direction</label>
+            <div class="radio-group" id="trade-direction"></div>
+          </div>
+          <div class="field">
+            <label>Entry Price</label>
+            <input type="number" id="trade-entry" placeholder="0.00" step="any" oninput="calcRisk()">
+          </div>
+        </div>
+        <div class="field-row col3">
+          <div class="field">
+            <label>Stop Loss</label>
+            <input type="number" id="trade-sl" placeholder="0.00" step="any" oninput="calcRisk()">
+          </div>
+          <div class="field">
+            <label>Take Profit</label>
+            <input type="number" id="trade-tp" placeholder="0.00" step="any" oninput="calcRisk()">
+          </div>
+          <div class="field">
+            <label>Point/Contract Value ($)</label>
+            <input type="number" id="trade-ptval" step="any" oninput="calcRisk()">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Risk Calculator</div>
+        <div id="risk-calc-result"></div>
+      </div>
+
+      <div class="flex-between mt16">
+        <span></span>
+        <button class="btn btn-primary" onclick="saveSetup()">Save Analysis</button>
+      </div>
+    </div>
+
+    <!-- CHECK -->
+    <div class="page" id="page-check">
+      <div class="section-header">
+        <h1>Pre-Trade Check</h1>
+        <p>Am I actually supposed to trade right now?</p>
+      </div>
+      <div class="card">
+        <div class="checklist" id="pretrade-checklist"></div>
+      </div>
+      <div id="trade-approval-result"></div>
+      <div id="start-trade-btn" class="hidden mt16">
+        <button class="btn btn-success btn-full" style="padding:14px" onclick="startTrade()">Confirm &amp; Start Trade</button>
+      </div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div class="page" id="page-journal">
+      <div class="section-header">
+        <div class="flex-between">
+          <div>
+            <h1>Trade Journal</h1>
+            <p>Complete record of all your trades</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAddTrade()">+ Add Trade</button>
+        </div>
+      </div>
+
+      <div class="card card-sm" style="margin-bottom:12px">
+        <div class="journal-filters">
+          <input type="text" id="journal-search" placeholder="Search notes, setup, emotion..." oninput="renderJournal()">
+          <select id="journal-filter-result" onchange="renderJournal()">
+            <option value="">All Results</option>
+            <option value="WIN">Wins</option>
+            <option value="LOSS">Losses</option>
+            <option value="BREAKEVEN">Breakevens</option>
+          </select>
+          <select id="journal-filter-dir" onchange="renderJournal()">
+            <option value="">All Directions</option>
+            <option value="LONG">Long</option>
+            <option value="SHORT">Short</option>
+          </select>
+          <select id="journal-filter-setup" onchange="renderJournal()">
+            <option value="">All Setups</option>
+          </select>
+          <button class="btn btn-sm" onclick="clearJournalFilters()">Clear filters</button>
+        </div>
+      </div>
+
+      <div class="card" id="journal-table-wrap">
+        <div id="journal-content"></div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="page" id="page-stats">
+      <div class="section-header">
+        <h1>Performance Statistics</h1>
+        <p>Calculated from your actual trade data</p>
+      </div>
+      <div id="stats-content"></div>
+    </div>
+
+    <!-- PSYCHOLOGY -->
+    <div class="page" id="page-psychology">
+      <div class="section-header">
+        <h1>Trading Psychology</h1>
+        <p>Understand and manage your emotional patterns</p>
+      </div>
+
+      <div class="psych-grid" id="psych-cards"></div>
+
+      <div class="card mt16">
+        <div class="card-title">Emotional Pattern (from Journal)</div>
+        <div id="psych-pattern"></div>
+      </div>
+
+      <div class="card mt16">
+        <div class="card-title">Daily Reflection</div>
+        <div class="field">
+          <label>Today's emotional state impact</label>
+          <textarea id="psych-reflection" placeholder="How has your psychology affected your trading today?"></textarea>
+        </div>
+        <button class="btn btn-primary mt8" onclick="savePsychReflection()">Save Reflection</button>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="page" id="page-status">
+      <div class="section-header">
+        <h1>Session Status</h1>
+        <p>Live overview of all restrictions and hard stops</p>
+      </div>
+      <div id="status-content"></div>
+
+      <div class="card mt16" id="kill-switch-card">
+        <div class="card-title">Kill Switch</div>
+        <p class="text-muted text-xs" style="margin-bottom:12px">Manually terminate the session if you feel you cannot trade with discipline today.</p>
+        <div id="kill-switch-area"></div>
+      </div>
+
+      <div class="card mt16">
+        <div class="card-title">Daily History</div>
+        <div class="cal-grid" id="history-grid"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-analytics">
+      <div class="section-header">
+        <h1>Analytics Command Center</h1>
+        <p>Real performance, journal and discipline data — no demo numbers.</p>
+      </div>
+      <div id="v10-analytics-content"></div>
+    </div>
+
+    <div class="page" id="page-settings">
+      <div class="section-header">
+        <h1>Settings</h1>
+        <p>Configure your trading parameters and application</p>
+      </div>
+
+      <div class="settings-layout">
+        <nav class="settings-nav" aria-label="Settings categories">
+          <button class="settings-tab active" type="button" data-settings-tab="account" onclick="showSettingsSection('account')">Account</button>
+          <button class="settings-tab" type="button" data-settings-tab="risk" onclick="showSettingsSection('risk')">Risk Management</button>
+          <button class="settings-tab" type="button" data-settings-tab="sessions" onclick="showSettingsSection('sessions')">Sessions & Time</button>
+          <button class="settings-tab" type="button" data-settings-tab="appearance" onclick="showSettingsSection('appearance')">Appearance</button>
+          <button class="settings-tab" type="button" data-settings-tab="data" onclick="showSettingsSection('data')">Data & Backup</button>
+        </nav>
+        <div class="settings-content">
+      <div class="card" data-settings-section="account">
+        <div class="card-title">Account</div>
+        <div class="field-row col2">
+          <div class="field">
+            <label>Starting Balance</label>
+            <input type="number" id="s-balance" step="any">
+          </div>
+          <div class="field">
+            <label>Currency</label>
+            <select id="s-currency">
+              <option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="JPY">JPY</option><option value="CAD">CAD</option><option value="AUD">AUD</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Instrument</label>
+          <input type="text" id="s-instrument" placeholder="e.g. NQ, GBPUSD, BTCUSD...">
+        </div>
+        <div class="field">
+          <label>Point / Contract Value ($)</label>
+          <input type="number" id="s-ptval" step="any">
+          <div class="help">The dollar value per 1-point move or per contract. E.g. NQ = $20/point, GBPUSD lot = $10/pip</div>
+        </div>
+      </div>
+
+      <div class="card" data-settings-section="risk">
+        <div class="card-title">Risk Rules</div>
+        <div class="help" style="margin-bottom:12px">Preset defaults: <strong>0.5%</strong> risk per trade · <strong>1%</strong> daily max loss · <strong>3</strong> max trades · <strong>2</strong> max consecutive losses · daily target <strong>2R</strong> · minimum RR <strong>1:2</strong>.</div>
+        <div class="field-row col3">
+          <div class="field">
+            <label>Risk Per Trade (%)</label>
+            <input type="number" id="s-risk" step="0.01">
+          </div>
+          <div class="field">
+            <label>Daily Max Loss (%)</label>
+            <input type="number" id="s-dailyloss" step="0.01">
+          </div>
+          <div class="field">
+            <label>Daily Target (R)</label>
+            <input type="number" id="s-target" step="0.1">
+          </div>
+        </div>
+        <div class="field-row col3">
+          <div class="field">
+            <label>Max Trades / Day</label>
+            <input type="number" id="s-maxtrades" step="1">
+          </div>
+          <div class="field">
+            <label>Max Consecutive Losses</label>
+            <input type="number" id="s-maxloss" step="1">
+          </div>
+          <div class="field">
+            <label>Minimum RR Ratio</label>
+            <input type="number" id="s-minrr" step="0.1">
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-settings-section="sessions">
+        <div class="card-title">Session Times (local time)</div>
+        <div class="field-row col3">
+          <div class="field">
+            <label>London Open</label>
+            <input type="time" id="s-london-open">
+          </div>
+          <div class="field">
+            <label>New York Open</label>
+            <input type="time" id="s-ny-open">
+          </div>
+          <div class="field">
+            <label>Asia Open</label>
+            <input type="time" id="s-asia-open">
+          </div>
+        </div>
+        <div class="help">Session validation uses this clock. New York automatically switches between EST (UTC−5) and EDT (UTC−4).</div>
+      </div>
+
+      <div class="card" data-settings-section="sessions">
+        <div class="card-title">SESSION CLOCK</div><div class="help" style="margin-bottom:12px">XE3AGLE uses New York local time for the default trading window. No manual UTC offset is required.</div><div class="card-title">Locale</div>
+        <div class="field-row col2">
+          <div class="field">
+            <label>Trading Clock</label>
+            <select id="s-timezone">
+              <option value="America/New_York">New York (Eastern Time)</option>
+              <option value="UTC">UTC</option>
+              <option value="America/Chicago">Chicago (CST)</option>
+              <option value="America/Denver">Denver (MST)</option>
+              <option value="America/Los_Angeles">Los Angeles (PST)</option>
+              <option value="Europe/London">London (GMT)</option>
+              <option value="Europe/Berlin">Frankfurt (CET)</option>
+              <option value="Asia/Tokyo">Tokyo (JST)</option>
+              <option value="Asia/Singapore">Singapore (SGT)</option>
+              <option value="Australia/Sydney">Sydney (AEDT)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Date Format</label>
+            <select id="s-dateformat">
+              <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+              <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+            </select>
+          </div>
+        </div>
+      </div></div>
+
+      <div class="card" data-settings-section="appearance">
+        <div class="card-title">Appearance</div>
+        <p class="help" style="margin-bottom:12px">Switch between modern colour themes. Your choice is saved on this device.</p>
+        <div class="theme-grid" id="theme-picker">
+          <button type="button" class="theme-swatch" data-theme-option="dark" onclick="setTheme('dark')"><div class="swatch-dot"></div>Dark</button>
+          <button type="button" class="theme-swatch" data-theme-option="light" onclick="setTheme('light')"><div class="swatch-dot"></div>White</button>
+          
+          <button type="button" class="theme-swatch" data-theme-option="blue" onclick="setTheme('blue')"><div class="swatch-dot"></div>Blue</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary mt8" onclick="saveSettings()">Save Settings</button>
+
+      <div class="divider"></div>
+
+      <div class="card" data-settings-section="data">
+        <div class="card-title">Data Backup</div>
+        <div class="btn-group">
+          <button class="btn" onclick="exportBackup()">↓ Export Backup</button>
+          <button class="btn" onclick="document.getElementById('import-file').click()">↑ Import Backup</button>
+          <input type="file" id="import-file" accept=".json" class="hidden" onchange="importBackup(event)">
+        </div>
+      </div>
+
+      <div class="card" data-settings-section="data" style="border-color:var(--red-border)">
+        <div class="card-title" style="color:var(--red)">Danger Zone</div>
+        <div class="btn-group">
+          <button class="btn" onclick="openResetSession()">Reset Session</button>
+          <button class="btn btn-danger" onclick="openDeleteAll()">Delete All Data</button>
+        </div>
+      </div>
+        </div><!-- settings-content -->
+      </div><!-- settings-layout -->
+    </div>
+
+    <!-- HOW TO USE / INSTRUCTIONS -->
+    <div class="page" id="page-guide">
+      <div class="section-header">
+        <h1>How To Use XE3AGLE</h1>
+        <p>Simple guide — read this before your first session</p>
+      </div>
+
+      <!-- WHAT IS THIS -->
+      <div class="card">
+        <div class="card-title">What is XE3AGLE?</div>
+        <div style="text-align:center;margin-bottom:16px">
+          <img id="guide-logo-img" class="xe-logo-image" src="assets/icons/xe3agle-logo.png" alt="XE3AGLE" style="height:80px;width:auto;object-fit:contain">
+        </div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:10px">XE3AGLE is your <strong style="color:var(--text)">trading checklist app</strong>. Before you take a trade, it makes sure you have followed all your rules. If you haven't — it says NO. If you have — it says TRADE APPROVED.</p>
+        <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:10px">Think of it like a pilot's pre-flight checklist. A pilot doesn't take off until every box is ticked. You don't trade until every condition is met.</p>
+        <div style="background:var(--surface2);border-left:3px solid var(--green);padding:12px 16px;border-radius:0 6px 6px 0;font-size:14px;font-weight:600;color:var(--text);margin-top:4px">
+          Plan the trade. Execute the plan. Stop when the plan says stop.
+        </div>
+      </div>
+
+      <!-- DAILY STEPS -->
+      <div class="card">
+        <div class="card-title">What You Do Every Day — In Order</div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:16px">Follow these steps every day. Do them in order. Do not skip any.</p>
+
+        <div style="display:flex;flex-direction:column;gap:2px">
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">1</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Open XE3AGLE first</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">Open this app <strong style="color:var(--text)">before</strong> you open your charts. Every time. No exceptions.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">2</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Go to Prepare <span style="font-size:11px;font-weight:400;color:var(--text3)">(tap Prepare in the menu)</span></div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">Pick how you feel right now. Be honest. Then read your rules and tap <strong style="color:var(--text)">"I Accept Today's Rules"</strong>. You cannot trade until you do this.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">3</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Go to Setup &amp; Analysis <span style="font-size:11px;font-weight:400;color:var(--text3)">(tap Setup in the menu)</span></div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">Look at your charts. Fill in every section: Bias, Liquidity, Sweep, MSS, Entry Model, Entry price, Stop Loss, Take Profit. Then tap <strong style="color:var(--text)">Save Analysis</strong>.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">4</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Go to Pre-Trade Check <span style="font-size:11px;font-weight:400;color:var(--text3)">(tap Pre-Trade Check in the menu)</span></div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">The app checks everything for you automatically. If you see <span style="color:var(--green);font-weight:700">TRADE APPROVED</span> — you can trade. If you see <span style="color:var(--red);font-weight:700">NO TRADE</span> — fix the items marked ✗ first.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">5</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Start the trade</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">Tap <strong style="color:var(--text)">Confirm &amp; Start Trade</strong>. Then go to your broker and place the trade exactly as you planned. Do not change anything.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">6</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Wait</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">Go back to the <strong style="color:var(--text)">Today</strong> page. Watch the trade. <strong style="color:var(--red)">Do not move your stop loss.</strong> Do not add more money to the trade. Just wait.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">7</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Close the trade</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">When the trade is done, tap <strong style="color:var(--text)">Win</strong>, <strong style="color:var(--text)">Loss</strong>, or <strong style="color:var(--text)">Breakeven</strong> on the Today page. Type in how much you made or lost. The app saves everything automatically.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;padding:14px 0">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0">8</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Review your day</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.6">When trading is over for the day, fill in the <strong style="color:var(--text)">Daily Review</strong> at the bottom of the Today page. Write what you learned. Close the charts.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WHAT EACH PAGE DOES -->
+      <div class="card">
+        <div class="card-title">What Each Page Does</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Today</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Your main screen. Shows your daily profit/loss, how many trades you've taken, your current status, and controls for the active trade. Start here every day.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Prepare</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Pick your emotion and accept the rules. Until you do this, the app will not approve any trade. It takes 30 seconds.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Setup &amp; Analysis</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Where you describe your trade. Fill in your bias, the liquidity levels, whether you saw a sweep and a market structure shift, your entry model, and your exact prices. The risk calculator shows you how much money is at risk.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Pre-Trade Check</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">The gate. The app checks every condition. Green tick = passed. Red cross = failed. All ticks = TRADE APPROVED. Any cross = NO TRADE. Fix the red ones, then come back.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Journal</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Every trade you've ever taken is saved here. You can view details, edit a trade, copy it, or delete it. You can also add trades manually.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Stats</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Your performance numbers — win rate, total profit/loss, best setup, which emotions lead to better trades, and charts showing your progress over time.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Psychology</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">8 cards about the mental mistakes traders make — greed, revenge, FOMO and more. Tap any card to read the full explanation and a reminder phrase. Read these when you feel off.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Status</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Shows your current session status and all active limits. Also has the Kill Switch — tap it to immediately stop trading for the day if you feel you are not in the right headspace.</div>
+          </div>
+
+          <div style="padding:12px 0">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Settings</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Change your account balance, risk %, daily loss limit, max trades, and more. Also where you back up and restore your data.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WHEN TRADING STOPS -->
+      <div class="card">
+        <div class="card-title">When Does Trading Stop Automatically?</div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:14px">The app will block all new trades and show <span style="color:var(--red);font-weight:700">TRADING TERMINATED</span> if any of these happen:</p>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">You lost too much today</div>
+            <div style="font-size:13px;color:var(--text2)">Default: if your account is down 1% or more for the day.</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">You lost 2 trades in a row</div>
+            <div style="font-size:13px;color:var(--text2)">Default: 2 consecutive losses. This stops you from revenge trading.</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">You hit your daily profit target</div>
+            <div style="font-size:13px;color:var(--text2)">Default: +2R. You made your money. Stop. Do not give it back.</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">You took the maximum number of trades</div>
+            <div style="font-size:13px;color:var(--text2)">Default: 3 trades per day. Fewer, better trades beats more, worse trades.</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">You pressed the Kill Switch</div>
+            <div style="font-size:13px;color:var(--text2)">You can stop yourself at any time. Go to Status → tap Kill Switch.</div>
+          </div>
+        </div>
+
+        <div class="alert alert-blue mt12">
+          <span>You can change all of these limits in Settings to match your own trading plan.</span>
+        </div>
+      </div>
+
+      <!-- R EXPLAINED -->
+      <div class="card">
+        <div class="card-title">What Does "R" Mean?</div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px"><strong style="color:var(--text)">R = the amount you risked on one trade.</strong></p>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px">Example: if your account is $10,000 and you risk 0.5%, you risk $50 per trade. That means <strong style="color:var(--text)">1R = $50</strong>.</p>
+
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+          <div style="display:flex;gap:14px;align-items:center;padding:9px 12px;background:var(--surface2);border-radius:var(--radius)">
+            <span style="font-family:monospace;font-weight:700;color:var(--green);width:44px;flex-shrink:0">+2R</span>
+            <span style="font-size:13px;color:var(--text2)">You made double your risk — great trade. That is +$100.</span>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;padding:9px 12px;background:var(--surface2);border-radius:var(--radius)">
+            <span style="font-family:monospace;font-weight:700;color:var(--green);width:44px;flex-shrink:0">+1R</span>
+            <span style="font-size:13px;color:var(--text2)">You made exactly your risk amount back. That is +$50.</span>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;padding:9px 12px;background:var(--surface2);border-radius:var(--radius)">
+            <span style="font-family:monospace;font-weight:700;color:var(--text2);width:44px;flex-shrink:0">0R</span>
+            <span style="font-size:13px;color:var(--text2)">Breakeven. You got out with no profit and no loss.</span>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;padding:9px 12px;background:var(--surface2);border-radius:var(--radius)">
+            <span style="font-family:monospace;font-weight:700;color:var(--red);width:44px;flex-shrink:0">-1R</span>
+            <span style="font-size:13px;color:var(--text2)">You lost your risk amount. Stop loss was hit. That is -$50.</span>
+          </div>
+        </div>
+
+        <p style="font-size:13px;color:var(--text2);line-height:1.7">When you close a trade, the app asks you to type the actual R. If you won but only got +1.5R instead of the full +2R, type 1.5. The app does the dollar math for you.</p>
+      </div>
+
+      <!-- ANALYSIS STEPS -->
+      <div class="card">
+        <div class="card-title">What to Fill In on the Setup Page</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Bias</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Is the market going up or down? Pick Bullish (up), Bearish (down), or Neutral. Do this for both the big picture and the smaller timeframe you trade on. If they agree — good. If they disagree — be careful.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Liquidity</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Where are the price levels where lots of buy/sell orders are sitting? Tick the ones you can see — previous highs, previous lows, equal highs, equal lows.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Sweep</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Did price briefly move past one of those levels and then come back? That is a sweep. Tick the box only if you actually saw it happen on your chart.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">MSS (Market Structure Shift)</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">After the sweep, did the market change direction? A market structure shift means price broke through a key level in the opposite direction. This is your signal that the move is real. Tick the box only when you see it clearly.</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Entry Model</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">What pattern are you using to enter? Pick one: FVG (a gap in price), Order Block (a key candle), OTE (a Fibonacci retracement), or Other.</div>
+          </div>
+
+          <div style="padding:12px 0">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Entry, Stop Loss, Take Profit</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.6">Type in the exact price for each one from your chart. The risk calculator will immediately show you how much money you are risking and what your reward could be.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BACKUP -->
+      <div class="card">
+        <div class="card-title">Saving Your Data</div>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px">All your trades and settings are saved <strong style="color:var(--text)">inside your browser</strong>. Nothing goes to the internet. But if you clear your browser data, you will lose everything.</p>
+        <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px"><strong style="color:var(--text)">Back up regularly.</strong> Go to Settings → Export Backup. This downloads a file with all your data. Keep it safe. If you ever need to restore, go to Settings → Import Backup and pick the file.</p>
+        <div class="alert alert-red">
+          <span>Do not clear your browser data or switch browsers without exporting a backup first. There is no recovery if you do not have a backup file.</span>
+        </div>
+      </div>
+
+      <!-- GOLDEN RULES -->
+      <div class="card" style="border-color:var(--border2)">
+        <div class="card-title">The Rules — Read These Every Day</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700">
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">No setup = no trade. If you are not sure, you wait.</div>
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">Do not move your stop loss.</div>
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">Do not trade to get your money back after a loss.</div>
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">When the app says STOP — stop.</div>
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">One bad trade does not ruin the week. One good trade does not make you invincible.</div>
+          <div style="padding:11px 14px;background:var(--surface2);border-radius:var(--radius);color:var(--text)">Discipline over impulse. Every single day.</div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:20px 0 8px;font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase">
+        XE3AGLE — Discipline Over Impulse
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-add-trade">
+  <div class="modal" style="max-width:600px">
+    <div class="flex-between" style="margin-bottom:16px">
+      <div class="modal-title" id="modal-trade-title">Add Trade</div>
+      <button class="btn btn-sm" onclick="closeModal('modal-add-trade')">✕</button>
+    </div>
+    <div class="field-row col3">
+      <div class="field"><label>Date</label><input type="date" id="t-date"></div>
+      <div class="field"><label>Time</label><input type="time" id="t-time"></div>
+      <div class="field"><label>Direction</label>
+        <select id="t-direction"><option value="LONG">Long</option><option value="SHORT">Short</option></select>
+      </div>
+    </div>
+    <div class="field-row col3">
+      <div class="field"><label>Entry</label><input type="number" id="t-entry" step="any"></div>
+      <div class="field"><label>Stop Loss</label><input type="number" id="t-sl" step="any"></div>
+      <div class="field"><label>Take Profit</label><input type="number" id="t-tp" step="any"></div>
+    </div>
+    <div class="field-row col3">
+      <div class="field"><label>Result</label>
+        <select id="t-result"><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BREAKEVEN">Breakeven</option></select>
+      </div>
+      <div class="field"><label>Result (R)</label><input type="number" id="t-result-r" step="0.1" placeholder="e.g. 2.0 or -1.0"></div>
+      <div class="field"><label>Setup</label>
+        <select id="t-setup"><option value="FVG">FVG</option><option value="Order Block">Order Block</option><option value="OTE">OTE</option><option value="Other">Other</option></select>
+      </div>
+    </div>
+    <div class="field-row col2">
+      <div class="field"><label>Risk %</label><input type="number" id="t-risk" step="0.01"></div>
+      <div class="field"><label>Session</label>
+        <select id="t-session"><option value="London">London</option><option value="New York">New York</option><option value="Asia">Asia</option><option value="Other">Other</option></select>
+      </div>
+    </div>
+    <div class="field-row col2">
+      <div class="field"><label>Emotion</label>
+        <select id="t-emotion">
+          <option>Calm</option><option>Focused</option><option>Patient</option><option>Confident</option>
+          <option>Tired</option><option>Distracted</option><option>Frustrated</option>
+          <option>Angry</option><option>Greedy</option><option>Fearful</option>
+        </select>
+      </div>
+      <div class="field"><label>Rule Violation?</label>
+        <select id="t-violation"><option value="0">No</option><option value="1">Yes</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="t-notes" placeholder="What happened? What did you observe?"></textarea></div>
+    <div class="field"><label>Post-Trade Review</label></div>
+    <div id="review-checks" style="margin-bottom:12px"></div>
+    <div class="field-row col3">
+      <div class="field"><label>What went well?</label><textarea id="t-good" style="min-height:60px"></textarea></div>
+      <div class="field"><label>What went wrong?</label><textarea id="t-bad" style="min-height:60px"></textarea></div>
+      <div class="field"><label>What will you change?</label><textarea id="t-change" style="min-height:60px"></textarea></div>
+    </div>
+    <div class="field">
+      <label>Screenshot</label>
+      <input type="file" id="t-screenshot" accept="image/*">
+      <div class="help" style="margin-top:6px">Uploads to your private cloud when you save the trade (compressed). Requires sign-in + API.</div>
+      <div id="t-screenshot-preview" class="mt8"></div>
+    </div>
+    <div class="btn-group mt16">
+      <button class="btn btn-primary" onclick="saveTrade()">Save Trade</button>
+      <button class="btn" onclick="closeModal('modal-add-trade')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-reset-session">
+  <div class="modal">
+    <div class="modal-title">Reset Session</div>
+    <div class="modal-desc">This will remove the trading lock for the current day. Only use this for a genuinely new trading session. Type <strong>RESET</strong> to confirm.</div>
+    <div class="field"><input type="text" id="reset-confirm-input" placeholder="Type RESET"></div>
+    <div class="btn-group mt12">
+      <button class="btn btn-danger" onclick="confirmResetSession()">Reset Session</button>
+      <button class="btn" onclick="closeModal('modal-reset-session')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-delete-all">
+  <div class="modal">
+    <div class="modal-title" style="color:var(--red)">Delete All XE3AGLE Data?</div>
+    <div class="modal-desc">This will permanently remove:<br>• All trades and journal entries<br>• Statistics and daily history<br>• Psychology data<br>• All settings<br><br>Type <strong>DELETE</strong> to confirm. This cannot be undone.</div>
+    <div class="field"><input type="text" id="delete-confirm-input" placeholder="Type DELETE"></div>
+    <div class="btn-group mt12">
+      <button class="btn btn-danger" onclick="confirmDeleteAll()">Permanently Delete Everything</button>
+      <button class="btn" onclick="closeModal('modal-delete-all')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-day-detail">
+  <div class="modal" style="max-width:560px">
+    <div class="flex-between" style="margin-bottom:16px">
+      <div class="modal-title" id="day-detail-title">Day Detail</div>
+      <button class="btn btn-sm" onclick="closeModal('modal-day-detail')">✕</button>
+    </div>
+    <div id="day-detail-content"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-trade-detail">
+  <div class="modal" style="max-width:560px">
+    <div class="flex-between" style="margin-bottom:16px">
+      <div class="modal-title">Trade Detail</div>
+      <button class="btn btn-sm" onclick="closeModal('modal-trade-detail')">✕</button>
+    </div>
+    <div id="trade-detail-content"></div>
+  </div>
+</div>
+
+<!-- CLOSE TRADE MODAL -->
+<div class="modal-overlay" id="modal-close-trade">
+  <div class="modal">
+    <div class="flex-between" style="margin-bottom:16px">
+      <div class="modal-title" id="close-trade-title">Close Trade — Win</div>
+      <button class="btn btn-sm" onclick="closeModal('modal-close-trade')">✕</button>
+    </div>
+    <div class="field">
+      <label>Actual Result (R)</label>
+      <input type="number" id="close-trade-r" step="0.1" placeholder="e.g. 2.0 for +2R, -1.0 for -1R, 0 for BE">
+      <div class="help" id="close-trade-help">Enter the actual R multiple achieved. A full win at your TP = positive value. A full loss at SL = negative value.</div>
+    </div>
+    <div id="close-trade-preview" class="calc-result mt8" style="display:none"></div>
+    <div class="btn-group mt16">
+      <button class="btn btn-primary" onclick="confirmCloseTrade()">Confirm &amp; Record</button>
+      <button class="btn" onclick="closeModal('modal-close-trade')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-title" id="confirm-title">Confirm</div>
+    <div class="modal-desc" id="confirm-message" style="margin-top:8px;margin-bottom:20px"></div>
+    <div class="btn-group">
+      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmOk()">Confirm</button>
+      <button class="btn" onclick="closeModal('modal-confirm')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+
+
+
+<script src="api-config.js"></script>
+<script src="js/legacy-v8.js"></script>
+<script src="js/v10-engine.js"></script>
+<script>
+// Expose the legacy state safely to the modular Firebase layer.
+try {
+  Object.defineProperty(window, 'state', { configurable:true, get:()=>state, set:(v)=>{ state=v; } });
+} catch(e) {}
+</script>
+<script type="module" src="js/app.js"></script>
+
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}</script>
+
+<style>
+.settings-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}.settings-nav{position:sticky;top:18px;display:flex;flex-direction:column;gap:7px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:16px}.settings-tab{appearance:none;border:1px solid transparent;background:transparent;color:var(--text);font:inherit;font-weight:650;text-align:left;padding:13px 14px;border-radius:10px;cursor:pointer;min-height:46px}.settings-tab:hover{background:var(--surface2)}.settings-tab.active{background:var(--accent-soft,var(--surface2));border-color:var(--accent);color:var(--text)}.settings-content{min-width:0}.settings-content [data-settings-section]{display:none}.settings-content [data-settings-section].settings-visible{display:block}.settings-content .settings-save-row{display:flex;justify-content:flex-start;margin:12px 0 22px}.settings-content .divider{display:none}@media(max-width:760px){.settings-layout{grid-template-columns:minmax(0,1fr);gap:12px}.settings-nav{position:static;display:flex;flex-direction:row;overflow-x:auto;gap:8px;padding:8px;scrollbar-width:thin}.settings-tab{white-space:nowrap;flex:0 0 auto;padding:11px 14px}.settings-content .field-row.col3,.settings-content .field-row.col2{grid-template-columns:minmax(0,1fr)!important}.settings-content .card{padding:16px}.settings-content .btn-group{flex-wrap:wrap}.settings-content .btn-group .btn{flex:1 1 140px}}
+</style>
+<script>
+const XE_SETTINGS_SECTIONS=['account','risk','sessions','appearance','security','data','devices','feedback'];
+function xeCategorizeSettings(){
+ const root=document.querySelector('#page-settings .settings-content');if(!root)return;
+ root.querySelectorAll(':scope > .card, :scope > [id^="xe-"]:not(.settings-save-row), :scope > [id^="xe16-"]').forEach(el=>{
+  if(el.dataset.settingsSection)return;
+  const id=(el.id||'').toLowerCase(), heading=(el.querySelector('.card-title')?.textContent||'').toLowerCase();
+  let cat='account';
+  if(/risk|protection|challenge|drawdown/.test(id+' '+heading))cat='risk';
+  else if(/session|timezone|clock/.test(id+' '+heading))cat='sessions';
+  else if(/appearance|theme/.test(id+' '+heading))cat='appearance';
+  else if(/security|verify|password|email|account-manager/.test(id+' '+heading))cat='security';
+  else if(/data|backup|export|import/.test(id+' '+heading))cat='data';
+  else if(/device|session-list/.test(id+' '+heading))cat='devices';
+  else if(/feedback/.test(id+' '+heading))cat='feedback';
+  el.dataset.settingsSection=cat;
+ });
+}
+function showSettingsSection(section){
+ if(!XE_SETTINGS_SECTIONS.includes(section))section='account';
+ xeCategorizeSettings();
+ document.querySelectorAll('#page-settings [data-settings-section]').forEach(el=>el.classList.toggle('settings-visible',el.dataset.settingsSection===section));
+ document.querySelectorAll('[data-settings-tab]').forEach(el=>{const active=el.dataset.settingsTab===section;el.classList.toggle('active',active);el.setAttribute('aria-current',active?'page':'false')});
+ try{sessionStorage.setItem('xe3agle-settings-section',section)}catch(e){}
+}
+(function initSettingsSections(){
+ const init=()=>{
+  const nav=document.querySelector('#page-settings .settings-nav');
+  const additions=[['security','Security'],['devices','Devices'],['feedback','Feedback']];
+  additions.forEach(([key,label])=>{if(nav&&!nav.querySelector(`[data-settings-tab="${key}"]`)){const b=document.createElement('button');b.type='button';b.className='settings-tab';b.dataset.settingsTab=key;b.textContent=label;b.onclick=()=>showSettingsSection(key);nav.appendChild(b)}});
+  const page=document.querySelector('#page-settings .settings-content');
+  const save=page&&page.querySelector('button[onclick="saveSettings()"]');
+  if(save&&!save.dataset.moved){const row=document.createElement('div');row.className='settings-save-row';save.parentNode.insertBefore(row,save);row.appendChild(save);save.dataset.moved='1';}
+  xeCategorizeSettings();let selected='account';try{selected=sessionStorage.getItem('xe3agle-settings-section')||'account'}catch(e){}showSettingsSection(selected);
+  const observer=new MutationObserver(()=>{xeCategorizeSettings();const active=document.querySelector('[data-settings-tab].active')?.dataset.settingsTab||'account';showSettingsSection(active)});if(page)observer.observe(page,{childList:true,subtree:false});
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+</body>
+</html>
+</body>
+</html>

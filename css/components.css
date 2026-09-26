@@ -1,0 +1,45 @@
+/* ── V10 STEP BAR ── */
+.v10-stepbar { display: grid; grid-template-columns: repeat(6,1fr); gap: 6px; margin-bottom: 16px }
+.v10-step { padding: 8px 6px; border: 1px solid var(--border); border-radius: 8px; text-align: center; font-size: 10px; font-weight: 800; color: var(--text3); background: var(--surface2); transition: .15s }
+.v10-step.done { border-color: var(--green-border); color: var(--green); background: var(--green-bg) }
+.v10-step.current { border-color: var(--accent-border); color: var(--accent); background: var(--accent-bg) }
+.v10-step.locked { opacity: .45 }
+
+/* ── V10 ANALYTICS ── */
+.v10-analytics-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 10px }
+.v10-stat { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px }
+.v10-stat .label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em }
+.v10-stat .value { font-size: 20px; font-weight: 800; margin-top: 5px; font-family: var(--font-mono); font-variant-numeric: tabular-nums }
+
+/* ── V10 CALENDAR ── */
+.v10-calendar { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 5px }
+.v10-cal-head { font-size: 10px; color: var(--text3); text-align: center; padding: 5px }
+.v10-cal-day { min-height: 76px; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 7px; cursor: pointer; transition: border-color .15s }
+.v10-cal-day:hover { border-color: var(--border2) }
+.v10-cal-day.muted { opacity: .3 }
+.v10-cal-day .n { font-size: 10px; color: var(--text3) }
+.v10-cal-day .r { font-size: 13px; font-weight: 800; margin-top: 8px; font-family: var(--font-mono) }
+
+/* ── V10 BADGE ── */
+.v10-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 7px; border-radius: 999px; font-size: 10px; font-weight: 800 }
+.v10-auth { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+.v10-lock { padding: 10px 12px; border: 1px solid var(--amber-border); background: var(--amber-bg); color: var(--amber); border-radius: 8px; font-size: 12px }
+.v10-review-grid { display: grid; gap: 0; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; background: var(--surface2) }
+.v10-hidden-money { filter: blur(6px); user-select: none }
+
+/* ── ICON BUTTON ── */
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: 1px solid transparent; border-radius: 6px; background: none; color: var(--text3); cursor: pointer; transition: .12s }
+.icon-btn:hover { color: var(--text); background: var(--surface2); border-color: var(--border) }
+
+/* ── XE16 overrides ── */
+.xe16-card, .xe-prod-card { border-radius: var(--radius2) !important; background: var(--surface) !important; border-color: var(--border) !important }
+.xe16-kpi { border-radius: 11px !important; background: var(--surface2) !important; border-color: var(--border) !important; padding: 13px !important }
+.xe16-pill { border-color: var(--border) !important; background: var(--surface2) !important; border-radius: 999px !important }
+.xe16-table tr:hover td { background: var(--accent-bg) !important }
+.xe16-chart, .xe-prod-equity { border-radius: 12px !important }
+
+@media (max-width: 768px) {
+  .v10-stepbar { grid-template-columns: repeat(3,1fr) }
+  .v10-calendar { gap: 3px }
+  .v10-cal-day { min-height: 58px; padding: 5px }
+}

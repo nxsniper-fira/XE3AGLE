@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const footerLinks = [
+const footerLinks: Array<{ href: '/' | '/pricing' | '/login' | '/signup'; label: string }> = [
   { href: '/', label: 'Home' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/login', label: 'Login' },

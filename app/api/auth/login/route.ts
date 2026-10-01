@@ -1,44 +1,45 @@
 import { NextResponse } from 'next/server';
-import { safeRegisterBody, validationError } from '@/lib/validations';
-import { createDemoUser, createPasswordHash, createSessionPayload, setSessionCookie, verifyPassword } from '@/lib/auth';
-
-const demoUsers = new Map<string, { password: string; user: ReturnType<typeof createDemoUser> }>();
+import { validationError } from '@/lib/validations';
+import { getDemoUserByEmail } from '@/lib/auth-store';
+import { createSessionPayload, setSessionCookie, verifyPassword } from '@/lib/auth';
 
 export async function POST(request: Request) {
-  const rawBody = await request.json();
-  const validated = await safeRegisterBody(rawBody);
+  const rawBody = await request.json().catch(() => null);
 
-  if (!validated.ok) {
-    return validationError(validated.error);
+  if (!rawBody || typeof rawBody.email !== 'string' || typeof rawBody.password !== 'string') {
+    return validationError('Email and password are required');
   }
 
-  const { email, password, name } = validated.data;
-  const existing = demoUsers.get(email.toLowerCase());
+  const email = rawBody.email.toLowerCase();
+  const userRecord = getDemoUserByEmail(email);
 
-  if (existing) {
-    return NextResponse.json({ ok: false, error: 'User already exists' }, { status: 409 });
+  if (!userRecord) {
+    return NextResponse.json({ ok: false, error: 'Invalid credentials' }, { status: 401 });
   }
 
-  const user = createDemoUser(email, 'user');
-  const hashedPassword = await createPasswordHash(password);
-  demoUsers.set(user.email.toLowerCase(), { password: hashedPassword, user });
+  const valid = await verifyPassword(rawBody.password, userRecord.passwordHash);
 
-  const session = createSessionPayload({
-    id: user.id,
-    email: user.email,
-    name: name ?? user.name,
-    role: user.role,
-  });
+  if (!valid) {
+    return NextResponse.json({ ok: false, error: 'Invalid credentials' }, { status: 401 });
+  }
 
-  await setSessionCookie(session);
+  await setSessionCookie(
+    createSessionPayload({
+      id: userRecord.id,
+      email: userRecord.email,
+      name: userRecord.name,
+      role: userRecord.role,
+    })
+  );
 
   return NextResponse.json({
     ok: true,
-    message: 'Account created successfully',
-    user: { id: user.id, email: user.email, name: name ?? user.name, role: user.role },
+    message: 'Logged in successfully',
+    user: {
+      id: userRecord.id,
+      email: userRecord.email,
+      name: userRecord.name,
+      role: userRecord.role,
+    },
   });
-}
-
-export async function GET() {
-  return NextResponse.json({ ok: true, users: Array.from(demoUsers.values()).map(({ user }) => user) });
 }

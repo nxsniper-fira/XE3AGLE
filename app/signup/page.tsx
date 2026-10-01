@@ -1,13 +1,31 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
+  const router = useRouter();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Signup attempt', form);
+    setError('');
+
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      setError(result.error ?? 'Unable to create account.');
+      return;
+    }
+
+    router.push('/dashboard');
   };
 
   return (
@@ -45,6 +63,7 @@ export default function SignupPage() {
               placeholder="Create a password"
             />
           </div>
+          {error ? <p className="text-sm text-red-400">{error}</p> : null}
           <button type="submit" className="w-full rounded-xl bg-[#ff7a1a] px-4 py-3 font-semibold text-[#08090b] transition hover:bg-[#ff8f43]">
             Create account
           </button>

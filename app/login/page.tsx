@@ -1,14 +1,32 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Login attempt', { email, password });
+    setError('');
+
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      setError(result.error ?? 'Unable to log in.');
+      return;
+    }
+
+    router.push('/dashboard');
   };
 
   return (
@@ -36,6 +54,7 @@ export default function LoginPage() {
               placeholder="••••••••"
             />
           </div>
+          {error ? <p className="text-sm text-red-400">{error}</p> : null}
           <button type="submit" className="w-full rounded-xl bg-[#ff7a1a] px-4 py-3 font-semibold text-[#08090b] transition hover:bg-[#ff8f43]">
             Log in
           </button>

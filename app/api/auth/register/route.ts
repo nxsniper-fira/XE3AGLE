@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { saveDemoUser, createDemoUser, getDemoUserByEmail } from '@/lib/auth-store';
+import { createDemoUser, getDemoUserByEmail, saveDemoUser } from '@/lib/auth-store';
 import { createPasswordHash, createSessionPayload, setSessionCookie } from '@/lib/auth';
 import { safeRegisterBody } from '@/lib/validations';
 
@@ -20,6 +20,7 @@ export async function POST(request: Request) {
 
   const user = createDemoUser(email, 'user');
   const hashedPassword = await createPasswordHash(password);
+
   saveDemoUser({
     id: user.id,
     email: user.email,

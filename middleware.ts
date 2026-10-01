@@ -1,20 +1,28 @@
 import { NextResponse } from 'next/server';
-import { adminPayments } from '@/lib/demo-data';
+import type { NextRequest } from 'next/server';
 
-export async function GET() {
-  return NextResponse.json({ ok: true, payments: adminPayments });
+const protectedPrefixes = ['/dashboard', '/admin', '/app'];
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const isProtected = protectedPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  );
+
+  if (!isProtected) {
+    return NextResponse.next();
+  }
+
+  const session = request.cookies.get('xe3agle_session');
+
+  if (!session) {
+    const loginUrl = new URL('/login', request.url);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  return NextResponse.next();
 }
 
-export async function POST(request: Request) {
-  const body = await request.json();
-
-  return NextResponse.json({
-    ok: true,
-    message: 'Payment submitted',
-    payment: {
-      id: `pay_${Date.now()}`,
-      ...body,
-      status: 'Pending',
-    },
-  });
-}
+export const config = {
+  matcher: ['/dashboard/:path*', '/admin/:path*', '/app/:path*'],
+};

@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #08090b;
+  --foreground: #f8fafc;
+  --panel: #111827;
+  --card: #12151d;
+  --muted: #94a3b8;
+  --primary: #ff7a1a;
+  --primary-strong: #ff8f43;
+  --border: rgba(148, 163, 184, 0.16);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(255, 122, 26, 0.14), transparent 30%),
+    var(--background);
+  color: var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(255, 122, 26, 0.25);
+}
+
+@layer components {
+  .container-screen {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-5xl font-display font-bold tracking-tight;
+  }
+
+  .soft-card {
+    @apply rounded-2xl border border-slate-800 bg-[#111827]/80 shadow-lg shadow-black/40;
+  }
+}

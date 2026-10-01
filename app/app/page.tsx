@@ -1,53 +1,58 @@
-export default function AppDashboardPage() {
-  const stats = [
-    { label: 'Daily P&L', value: '+$420' },
-    { label: 'Discipline Score', value: '86' },
-    { label: 'Current Streak', value: '9 days' },
-    { label: 'Trades Left', value: '2' },
-  ];
+import { adminPayments } from '@/lib/demo-data';
 
+export default function AdminPage() {
   return (
-    <main className="container-screen py-12">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-[#ffb27e]">Dashboard</p>
-          <h1 className="mt-3 section-title text-3xl md:text-4xl">Today’s discipline status</h1>
-        </div>
-        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">TRADE_APPROVED</span>
+    <main className="container-screen py-16">
+      <div className="mb-8">
+        <p className="text-sm uppercase tracking-[0.2em] text-[#ffb27e]">Admin dashboard</p>
+        <h1 className="mt-3 text-4xl font-display font-bold text-white">Platform overview</h1>
       </div>
 
       <div className="grid gap-6 md:grid-cols-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="soft-card p-5">
-            <p className="text-sm text-slate-400">{stat.label}</p>
-            <p className="mt-3 text-3xl font-display font-bold text-white">{stat.value}</p>
+        {[
+          { label: 'Total users', value: '4,280' },
+          { label: 'Active PRO', value: '1,120' },
+          { label: 'Active PRO+', value: '390' },
+          { label: 'Pending payments', value: '18' },
+        ].map((metric) => (
+          <div key={metric.label} className="soft-card p-5">
+            <p className="text-sm text-slate-400">{metric.label}</p>
+            <p className="mt-3 text-3xl font-display font-bold text-white">{metric.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1.5fr_0.8fr]">
-        <div className="soft-card p-6">
-          <h2 className="text-xl font-bold text-white">Discipline flow</h2>
-          <div className="mt-6 space-y-3">
-            {['Prepare', 'Analysis', 'Pre-Trade', 'Trade', 'Review'].map((item) => (
-              <div key={item} className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3">
-                <span className="text-slate-200">{item}</span>
-                <span className="text-emerald-400">Complete</span>
-              </div>
+      <div className="mt-10 soft-card overflow-hidden">
+        <table className="min-w-full text-left text-sm text-slate-200">
+          <thead className="bg-slate-950/80 text-slate-400">
+            <tr>
+              <th className="px-6 py-4">User</th>
+              <th className="px-6 py-4">Amount</th>
+              <th className="px-6 py-4">Method</th>
+              <th className="px-6 py-4">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {adminPayments.map((payment) => (
+              <tr key={payment.id} className="border-t border-slate-800">
+                <td className="px-6 py-4">{payment.user}</td>
+                <td className="px-6 py-4">{payment.amount}</td>
+                <td className="px-6 py-4">{payment.method}</td>
+                <td className="px-6 py-4">
+                  <span
+                    className={`rounded-full px-2 py-1 text-xs font-semibold ${
+                      payment.status === 'Approved'
+                        ? 'bg-emerald-500/10 text-emerald-300'
+                        : 'bg-amber-500/10 text-amber-300'
+                    }`}
+                  >
+                    {payment.status}
+                  </span>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
-
-        <div className="soft-card p-6">
-          <h2 className="text-xl font-bold text-white">Risk checks</h2>
-          <ul className="mt-6 space-y-3 text-sm text-slate-200">
-            <li>• Max risk per trade: 0.5%</li>
-            <li>• Daily loss cap: 1%</li>
-            <li>• Max 3 trades/day</li>
-            <li>• +2R stop rule active</li>
-            <li>• Kill switch available</li>
-          </ul>
-        </div>
+          </tbody>
+        </table>
       </div>
     </main>
   );

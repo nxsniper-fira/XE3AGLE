@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, numeric, boolean, integer, varchar, index, unique } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, numeric, boolean, integer, varchar, index, unique, serial } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable(
@@ -13,9 +13,9 @@ export const users = pgTable(
     role: varchar('role', { length: 20 }).notNull().default('user'),
     plan: varchar('plan', { length: 20 }).notNull().default('free'),
     planExpiry: timestamp('plan_expiry'),
-    discipline_score: numeric('discipline_score', { precision: 5, scale: 2 }).default('0'),
+    disciplineScore: numeric('discipline_score', { precision: 5, scale: 2 }).default('0'),
     streak: integer('streak').default(0),
-    kill_switch_enabled: boolean('kill_switch_enabled').default(false),
+    killSwitchEnabled: boolean('kill_switch_enabled').default(false),
     timezone: varchar('timezone', { length: 50 }).default('UTC'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -139,4 +139,9 @@ export const tradesRelations = relations(trades, ({ one }) => ({
 export const paymentsRelations = relations(payments, ({ one }) => ({
   user: one(users, { fields: [payments.userId], references: [users.id] }),
   approver: one(users, { fields: [payments.approvedBy], references: [users.id] }),
+}));
+
+export const disciplineGatesRelations = relations(disciplineGates, ({ one }) => ({
+  account: one(accounts, { fields: [disciplineGates.accountId], references: [accounts.id] }),
+  trade: one(trades, { fields: [disciplineGates.tradeId], references: [trades.id] }),
 }));

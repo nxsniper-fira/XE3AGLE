@@ -1,9 +1,14 @@
+import { dashboardStats, disciplineSteps, prices } from '@/lib/demo-data';
+import { evaluateRisk, getTradeApprovalStatus } from '@/lib/risk';
+
 export default function PricingPage() {
-  const plans = [
-    { name: 'Free', price: '$0', description: 'For traders starting to build structure.', perks: ['1 account', 'Basic daily review', 'Risk engine active'] },
-    { name: 'PRO', price: '$49', description: 'For serious execution and accountability.', perks: ['3 accounts', 'Analytics', 'Weekly Telegram summary'] },
-    { name: 'PRO+', price: '$99', description: 'For advanced journaling and account management.', perks: ['15 accounts', 'Custom risk per account', 'CSV import/export', 'Playbook library'] },
-  ];
+  const riskState = evaluateRisk({
+    dailyLoss: 0.72,
+    riskPerTrade: 0.35,
+    maxDailyLoss: 1,
+    maxTradesPerDay: 3,
+    tradesToday: 2,
+  });
 
   return (
     <main className="container-screen py-20">
@@ -13,7 +18,7 @@ export default function PricingPage() {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        {plans.map((plan) => (
+        {prices.map((plan) => (
           <div key={plan.name} className="soft-card p-6">
             <p className="text-sm uppercase tracking-[0.2em] text-slate-400">{plan.name}</p>
             <div className="mt-5 flex items-end gap-2">
@@ -28,6 +33,28 @@ export default function PricingPage() {
             </ul>
           </div>
         ))}
+      </div>
+
+      <div className="mt-16 soft-card p-6">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm uppercase tracking-[0.2em] text-[#ffb27e]">Risk status</p>
+            <h2 className="mt-2 text-2xl font-display font-bold text-white">Current trade gate</h2>
+          </div>
+          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">
+            {getTradeApprovalStatus(riskState)}
+          </span>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {riskState.map((check) => (
+            <div key={check.label} className="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+              <p className="text-sm text-slate-400">{check.label}</p>
+              <p className="mt-2 text-xl font-bold text-white">{check.value}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.2em] text-emerald-300">{check.status}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );

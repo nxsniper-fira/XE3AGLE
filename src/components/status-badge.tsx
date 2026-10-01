@@ -1,3 +1,5 @@
+'use client';
+
 import { getStatusPillClasses } from '@/lib/status';
 
 interface StatusBadgeProps {
